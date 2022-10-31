@@ -12,7 +12,9 @@ dotenv.config();
 mongoose.connect(process.env.MONGO_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-});
+})
+.then(() => console.log("DB Connection Working"))
+.catch((err) => console.log(err));
 
 app.get("/getUsers", (req, res) => {
     UserModel.find({}, (err, result) => {
