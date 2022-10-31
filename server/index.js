@@ -2,14 +2,17 @@ const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
 const UserModel = require("./models/users");
+const dotenv = require("dotenv");
 const cors = require("cors");
 
 app.use(express.json());
 app.use(cors());
+dotenv.config();
 
-mongoose.connect(
-    "mongodb+srv://BOT0001:OurFirstUserxD@cluster0.d9e5gyp.mongodb.net/CEN3031Project?retryWrites=true&w=majority"
-);
+mongoose.connect(process.env.MONGO_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+});
 
 app.get("/getUsers", (req, res) => {
     UserModel.find({}, (err, result) => {
