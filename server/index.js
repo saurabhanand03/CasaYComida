@@ -1,13 +1,14 @@
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
-const UserModel = require("./models/users");
+const userRoute = require("./routes/users");
 const dotenv = require("dotenv");
 const cors = require("cors");
+dotenv.config();
 
 app.use(express.json());
 app.use(cors());
-dotenv.config();
+app.use("/user", userRoute);
 
 mongoose.connect(process.env.MONGO_URL, {
     useNewUrlParser: true,
@@ -15,24 +16,6 @@ mongoose.connect(process.env.MONGO_URL, {
 })
 .then(() => console.log("DB Connection Working"))
 .catch((err) => console.log(err));
-
-app.get("/getUsers", (req, res) => {
-    UserModel.find({}, (err, result) => {
-        if(err) {
-            res.json(error);
-        }
-        else {
-            res.json(result);
-        }
-    });
-});
-
-app.post("/createUser", async (req, res) => {
-    const user = req.body;
-    const newUser = new UserModel(user);
-    await newUser.save();
-    res.json(user);
-});
 
 app.listen(3001, () => {
     console.log("SERVER IS WORKING");
