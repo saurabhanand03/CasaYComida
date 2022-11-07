@@ -12,7 +12,7 @@ router.post('/', async (req, res) => {
         res.status(201).json(newUser);
     }
     catch (err) {
-        res.status(400).json({message : err});
+        res.status(500).json({message : err});
     }
 });
 
@@ -24,7 +24,7 @@ router.get('/:id', async (req, res) => {
         res.status(200).json(user);
     }
     catch (err) {
-        res.status(404).json({message : err});
+        res.status(500).json({message : err});
     }
 });
 
@@ -34,7 +34,7 @@ router.get('/', async (req, res) => {
         res.status(200).json(users);
     }
     catch (err) {
-        res.status(404).json({message: err});
+        res.status(500).json({message: err});
     }
 });
 
@@ -43,7 +43,7 @@ router.patch('/:id', async (req, res) => {
     const { name, email, username, password } = req.body;
     
     if(!mongoose.Types.ObjectId.isValid(userID)) {
-        return res.status(404).send(`No user with the id: ${userID}`);
+        return res.status(500).send(`No user with the id: ${userID}`);
     }
 
     const updatedUser = { name, email, username, password, _userID: userID };
@@ -55,7 +55,7 @@ router.delete('/:id', async (req, res) => {
     const userID = req.params.id;
     
     if(!mongoose.Types.ObjectId.isValid(userID)) {
-        return res.status(404).send(`No user with the id: ${userID}`);
+        return res.status(500).send(`No user with the id: ${userID}`);
     }
 
     await User.findByIdAndRemove(userID);
