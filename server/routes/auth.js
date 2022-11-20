@@ -2,6 +2,7 @@ const express = require("express");
 const UserModel = require("../models/users");
 const router = express.Router();
 const jwt = require("jsonwebtoken");
+const validator = require("validator");
 const bcrypt = require("bcryptjs");
 
 router.post("/signup", async (req, res) => {
@@ -9,6 +10,12 @@ router.post("/signup", async (req, res) => {
     try {
         if(!name || !email || !username || !password) {
             return res.status(400).json({ message: "Missing credentials!"});
+        }
+        if(!validator.isEmail(email)) {
+            return res.status(401).json({ message: "Not a valid email!"});
+        }
+        if(!validator.isStrongPassword(password)) {
+            return res.status(401).json({ message: "Bad password! Choose a different password"});
         }
         const existingUser = await UserModel.findOne({ email });
         if(existingUser) {
