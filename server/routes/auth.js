@@ -30,7 +30,7 @@ router.post("/signup", async (req, res) => {
             password: hashPassword,
         });
         const user = await newUser.save();
-        res.status(201).json({message: "User has been successfully created!"});
+        res.status(201).json({user});
     }
     catch (err) {
         res.status(500).json(err);
@@ -50,12 +50,14 @@ router.post("/signin", async (req, res) => {
         }
 
         const correctPwd = await bcrypt.compare(password, existingUser.password);
+
         if(!correctPwd) {
             return res.status(401).json({ message: "Invalid credentials!"});
         }
+        const accessToken = jwt.sign({email : existingUser.email, id : existingUser._id}, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1h'});
 
         if(correctPwd) {
-            res.status(200).json({ message: "Successful login!"});
+            res.status(200).json({accessToken});
         }
     }
     catch (err) {
