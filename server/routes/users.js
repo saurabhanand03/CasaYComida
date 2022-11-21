@@ -2,10 +2,9 @@ const express = require("express");
 const mongoose = require("mongoose");
 const router = express.Router();
 const User = require("../models/users");
-const authenticate = require("../auth/verifyToken");
-const jwt = require("jsonwebtoken");
+const authenticate = require("../middleware/auth");
 
-router.post('/', authenticate, async (req, res) => {
+router.post('/', async (req, res) => {
     const user = req.body;
     const newUser = new User(user);
 
@@ -20,9 +19,6 @@ router.post('/', authenticate, async (req, res) => {
 
 router.get('/:id', authenticate, async (req, res) => {
     const userID  = req.params.id;
-    if(req.user.id !== req.params.id) {
-        
-    }
     try {
         const user = await User.findById(userID);
         res.status(200).json(user);

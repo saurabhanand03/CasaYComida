@@ -54,15 +54,20 @@ router.post("/signin", async (req, res) => {
         if(!correctPwd) {
             return res.status(401).json({ message: "Invalid credentials!"});
         }
-        const accessToken = jwt.sign({email : existingUser.email, id : existingUser._id}, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1h'});
 
         if(correctPwd) {
-            res.status(200).json({accessToken});
+            const token = jwt.sign({email : existingUser.email, id : existingUser._id}, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1h'});
+            res.status(200).json({token});
         }
     }
     catch (err) {
         res.status(500).json({ message: "Access denied!"});
     }
+});
+
+router.get("/logout", (req, res) => {
+    req.logout();
+    res.redirect("/");
 });
 
 module.exports = router;
