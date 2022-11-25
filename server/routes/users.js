@@ -40,13 +40,13 @@ router.get('/', authenticate, async (req, res) => {
 
 router.patch('/:id', authenticate, async (req, res) => {
     const userID = req.params.id;
-    const { name, email, username, password } = req.body;
+    const { name, email, password } = req.body;
     
     if(!mongoose.Types.ObjectId.isValid(userID)) {
         return res.status(500).send(`No user with the id: ${userID}`);
     }
 
-    const updatedUser = { name, email, username, password, _userID: userID };
+    const updatedUser = { name, email, password, _userID: userID };
     await User.findByIdAndUpdate(userID, updatedUser, {new: true });
     res.status(201).json(updatedUser);
 })
