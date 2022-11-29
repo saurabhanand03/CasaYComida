@@ -4,8 +4,8 @@ async function sendEmail(address, link) {
     const transporter = nodemailer.createTransport({
         host: "smtp.gmail.com",
         auth: {
-            user: process.env.MAIL, // generated ethereal user
-            pass: process.env.PASS, // generated ethereal password
+            user: process.env.MAIL,
+            pass: process.env.PASS,
         },
     });
     const forgotEmail = {
