@@ -19,6 +19,7 @@ router.post('/', async (req, res) => {
 
 router.get('/:id', authenticate, async (req, res) => {
     const userID  = req.params.id;
+    
     try {
         const user = await User.findById(userID);
         res.status(200).json(user);
@@ -47,7 +48,7 @@ router.patch('/:id', authenticate, async (req, res) => {
     }
 
     const updatedUser = { name, email, password, _userID: userID };
-    await User.findByIdAndUpdate(userID, updatedUser, {new: true });
+    await User.findByIdAndUpdate(userID, updatedUser, { new: true });
     res.status(201).json(updatedUser);
 })
 

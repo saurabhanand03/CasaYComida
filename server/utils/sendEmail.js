@@ -2,21 +2,26 @@ const nodemailer = require('nodemailer');
 
 async function sendEmail(address, link) {
     const transporter = nodemailer.createTransport({
-        host: "smtp.ethereal.email",
-        port: 587,
+        host: "smtp.gmail.com",
         auth: {
-            user: process.env.MAIL, // generated ethereal user
-            pass: process.env.PASS, // generated ethereal password
+            user: process.env.MAIL,
+            pass: process.env.PASS,
         },
     });
     const forgotEmail = {
-        from: "noreply@casaycomidatechsupport.com",
+        from: process.env.MAIL,
         to: address,
         subject: "Password Reset",
         html:`
-        <h3>Please reset your password by clicking on this link: <a href=${link}</a></h3>`
+        <h3>Please reset your password by clicking on this link: <a href="${link}">Email reset</a></h3>`
     }
-    const info = transporter.sendMail(forgotEmail);
+    transporter.sendMail(forgotEmail, function (err, info) {
+        if(err) {
+            console.log(err);
+            return;
+        }
+        console.log("Sent: " + info.response);
+    });
 }
 
 module.exports = sendEmail;

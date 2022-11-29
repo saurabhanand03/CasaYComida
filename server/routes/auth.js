@@ -46,6 +46,7 @@ router.post("/signin", async (req, res) => {
         if(!validator.isEmail(email)) {
             return res.status(401).json({ message: "Not a valid email!"});
         }
+        
         const existingUser = await UserModel.findOne({ email });
         if(!existingUser) {
             return res.status(401).json({ message: "User does not exist!"});
@@ -69,25 +70,84 @@ router.post("/signin", async (req, res) => {
 
 router.post("/forgotpassword", async (req, res) => {
     const { email } = req.body;
-    if(!email || !validator.isEmail(email)) {
-        return res.status(400).json({ message: "Invalid email!"});
+    try {
+        if(!email || !validator.isEmail(email)) {
+            return res.status(400).json({ message: "Invalid email!"});
+        }
+        
+        const existingUser = await UserModel.findOne({ email });
+        
+        if(!existingUser) {
+            return res.status(400).json({ message: "User does not exist!"});
+        }
+        
+        const token = jwt.sign({email : existingUser.email, id : existingUser._id}, process.env.RESET_PASSWORD_SECRET, { expiresIn: '30m'});
+        const link = "http://" + req.hostname + ":3001/resetpassword?token=" + token;
+        const sentMail = sendEmail(existingUser.email, link);
+        
+        if(!sentMail) {
+            return res.status(500).json({ message: "Email not sent!"});
+        }
+        
+        else {
+            return res.status(200).json({ message: "Email sent successfully! Please check your inbox!"});
+        }
     }
-    const existingUser = await UserModel.findOne({ email });
-    if(!existingUser) {
-        return res.status(400).json({ message: "User does not exist!"});
-    }
-    const token = jwt.sign({email : existingUser.email, id : existingUser._id}, process.env.RESET_PASSWORD_SECRET, { expiresIn: '30m'});
-    const link = "http://" + req.hostname + ":3001/resetpassword?token=" + token;
-    const sentMail = await sendEmail(existingUser.email, link);
-    if(sentMail) {
-        return res.status(500).json({ message: "Email not sent!"});
-    }
-    else {
-        return res.status(200).json({ message: "Email sent successfully! Please check your inbox!"});
+    catch (err) {
+        res.status(500).json({ message: "Email not sent!"});
     }
 });
 
 router.post("/resetpassword", async (req, res) => {
+    const { email, newPassword, verifyNewPassword } = req.body;
+    try {
+        
+        if(!email || !newPassword || !verifyNewPassword) {
+            return res.status(400).json({ message: "Please fill in all fields!"});
+        }
+        
+        if(!validator.isEmail(email)) {
+            return res.status(401).json({ message: "Not a valid email!"});
+        }
+        
+        const existingUser = await UserModel.findOne({ email });
+        
+        if(!existingUser) {
+            return res.status(401).json({ message: "User does not exist!"});
+        }
+        
+        if(newPassword !== verifyNewPassword) {
+            return res.status(401).json({ message: "Passwords do not match!"});
+        }
+
+        if(!validator.isStrongPassword(newPassword)) {
+            return res.status(401).json({ message: "Bad password"});
+        }
+       
+        const saltRounds = 12;
+        const hashPassword = await bcrypt.hash(newPassword, saltRounds);
+        
+        const samePassword = await bcrypt.compare(newPassword, existingUser.password);
+        if(samePassword) {
+            return res.status(401).json({ message: "New password cannot be same as old password!"});
+        
+        }
+
+        const updateUser = await UserModel.findOneAndUpdate({email}, {
+            password: hashPassword
+        });
+
+        if(updateUser) {
+            return res.status(200).json({ message: "Password updated successfully!"});
+        }
+        
+        else {
+            return res.status(500).json({ message: "Password not updated!"});
+        }
+    }
+    catch (err) {
+        res.status(500).json({ message: "Access denied!"});
+    }
 });
 
 module.exports = router;
