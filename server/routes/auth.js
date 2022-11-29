@@ -78,8 +78,8 @@ router.post("/forgotpassword", async (req, res) => {
     }
     const token = jwt.sign({email : existingUser.email, id : existingUser._id}, process.env.RESET_PASSWORD_SECRET, { expiresIn: '30m'});
     const link = "http://" + req.hostname + ":3001/resetpassword?token=" + token;
-    const sentMail = await sendEmail(existingUser.email, link);
-    if(sentMail) {
+    const sentMail = sendEmail(existingUser.email, link);
+    if(!sentMail) {
         return res.status(500).json({ message: "Email not sent!"});
     }
     else {
