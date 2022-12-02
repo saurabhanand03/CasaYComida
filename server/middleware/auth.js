@@ -1,5 +1,10 @@
 const jwt = require('jsonwebtoken');
 
+/**
+ * @description: This function is used to authenticate or verify a token and return if it's valid or not
+ * @param {string} token - The token to be verified
+ */
+
 async function authenticate (req, res, next) {
     const authToken = req.headers.authorization;
     if(authToken) {
