@@ -4,6 +4,11 @@ const router = express.Router();
 const User = require("../models/users");
 const authenticate = require("../middleware/auth");
 
+//CRUD operations for users
+
+/**
+ * @description: This function is used to create a new user into the database
+ */
 router.post('/', async (req, res) => {
     const user = req.body;
     const newUser = new User(user);
@@ -17,6 +22,9 @@ router.post('/', async (req, res) => {
     }
 });
 
+/**
+ * @description: This function is used to get a specific user with the object id from the database
+ */
 router.get('/:id', authenticate, async (req, res) => {
     const userID  = req.params.id;
     
@@ -29,6 +37,10 @@ router.get('/:id', authenticate, async (req, res) => {
     }
 });
 
+/**
+ * @description: This function is used to get all the users from the database
+ */
+
 router.get('/', authenticate, async (req, res) => {
     try {
         const users = await User.find();
@@ -38,6 +50,10 @@ router.get('/', authenticate, async (req, res) => {
         res.status(500).json({message: err});
     }
 });
+
+/**
+ * @description: This function is used to update a specific user's value(s) with their id within the database
+ */
 
 router.patch('/:id', authenticate, async (req, res) => {
     const userID = req.params.id;
@@ -51,6 +67,10 @@ router.patch('/:id', authenticate, async (req, res) => {
     await User.findByIdAndUpdate(userID, updatedUser, { new: true });
     res.status(201).json(updatedUser);
 })
+
+/**
+ * @description: This function is used to delete a specific user with their id from the database
+ */
 
 router.delete('/:id', authenticate, async (req, res) => {
     const userID = req.params.id;

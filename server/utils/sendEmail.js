@@ -1,5 +1,10 @@
 const nodemailer = require('nodemailer');
 
+/**
+ * @description: This function uses nodemailer to send a real-time email to the user
+ * @param {string} address - email address of the user
+ * @param {string} link - reset password link to be sent to the user
+ */
 async function sendEmail(address, link) {
     const transporter = nodemailer.createTransport({
         host: "smtp.gmail.com",
@@ -8,6 +13,8 @@ async function sendEmail(address, link) {
             pass: process.env.PASS,
         },
     });
+    
+    //This is what the email will look like when sent to the user
     const forgotEmail = {
         from: process.env.MAIL,
         to: address,
@@ -20,6 +27,7 @@ async function sendEmail(address, link) {
             console.log(err);
             return;
         }
+        //Used to check if email sent successfully
         console.log("Sent: " + info.response);
     });
 }

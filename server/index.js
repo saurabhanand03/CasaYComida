@@ -9,9 +9,12 @@ dotenv.config();
 
 app.use(express.json());
 app.use(cors());
+
+//Establish routes
 app.use("/user", userRoute);
 app.use("/user", authRoute);
 
+//Connect to MongoDB Atlas 
 mongoose.connect(process.env.MONGO_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
@@ -19,6 +22,7 @@ mongoose.connect(process.env.MONGO_URL, {
 .then(() => console.log("DB Connection Working"))
 .catch((err) => console.log(err));
 
+//Start the server on localhost:3001
 app.listen(3001, () => {
     console.log("SERVER IS WORKING");
 });
