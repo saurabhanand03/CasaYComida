@@ -1,4 +1,6 @@
 import React, { useState } from "react"
+import {Link} from "react-router-dom";
+
 
 // SignUp page
 export const SignUp = (props) => {
@@ -25,7 +27,7 @@ export const SignUp = (props) => {
                 <input value={password} onChange={(event) => setPassword(event.target.value)} type="password" placeholder="Enter Password" id="password" name="password"/>
                 <label htmlFor="confirmPassword">Confirm Password</label>
                 <input value={confirmPassword} onChange={(event) => setConfirmPassword(event.target.value)} type="password" placeholder="Confirm Password" id="confirmPassword" name="confirmPassword"/>
-                <button className="link-btn" onClick={() => props.onFormSwitch('login')}>Already have an account? Log in here</button>
+                <Link className="link-btn" to={"/"}>Already have an account? Log in here</Link>
             </form>
             <button type="submit">Create Account</button>
         </div>
