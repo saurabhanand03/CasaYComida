@@ -1,9 +1,15 @@
 import React, { useState } from "react"
+import {Link, Navigate} from "react-router-dom";
 
 // Login page
 export const Login = (props) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [goToHome, setGoToHome] = React.useState(false);
+
+    if (goToHome) {
+        return <Navigate to="/home" />;
+      }
 
     // Handles page states for entering and submitting login info
     const handleSubmit = (event) => {
@@ -19,9 +25,13 @@ export const Login = (props) => {
                 <input value={username} onChange={(event) => setUsername(event.target.value)} type="username" placeholder="Enter Username" id="username" name="username"/>
                 <label htmlFor="password">Password</label>
                 <input value={password} onChange={(event) => setPassword(event.target.value)} type="password" placeholder="Enter Password" id="password" name="password"/>
-                <button className="link-btn" onClick={() => props.onFormSwitch('signup')}>Don't have an account? Sign up here</button>
+                <Link className="link-btn" to={"/signup"}>Don't have an account? Sign up here</Link>
             </form>
-            <button type="submit">Login</button>
+            <button
+                onClick={() => {
+                setGoToHome(true);
+                }}
+            >Login</button>
         </div>
     )
 }

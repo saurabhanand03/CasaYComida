@@ -1,23 +1,25 @@
 import React, { useState } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import { SignUp } from './components/SignUp';
 import { Login } from './components/Login';
+import Home from './components/Home';
+import {
+  BrowserRouter,
+  Route,
+  Routes
+} from "react-router-dom";
 
 function App() {
-
-  // Current Page is initially the Login Page
-  const [currentForm, setCurrentForm] = useState('login');
-
-  // Toggle Page when "Log in here" or "Sign up here" buttons are pressed
-  const toggleForm = (formName) => {
-    setCurrentForm(formName);
-  }
-
   return (
     <div className="App">
       {
-        currentForm === "login" ? <Login onFormSwitch={toggleForm} /> : <SignUp onFormSwitch={toggleForm} />
+        <BrowserRouter>
+            <Routes>
+                <Route path="/" element={<Login/>} />
+                <Route path="/home" element={<Home/>} />
+                <Route path="/signup" element={<SignUp/>} />
+            </Routes>
+        </BrowserRouter>
       }
     </div>
   );

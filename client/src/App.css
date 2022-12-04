@@ -43,4 +43,6 @@ button {
   background: none;
   color: white;
   text-decoration: underline;
+  font-size: smaller;
+  padding: 10px;
 }
