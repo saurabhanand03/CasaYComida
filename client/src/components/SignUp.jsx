@@ -26,11 +26,11 @@ export const SignUp = (props) => {
                 email,
 				password,
                 confirmPassword
-			}),
-		});
-        if(response.status === 201) {
+			})
+		})
+        if(response.ok) {
             setGoToLogin(true);
-            alert("Account created! Please log in to continue.");
+            alert("Account created! Please log in to continue.")
         }
 	}
 
