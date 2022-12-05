@@ -7,6 +7,8 @@ import {
 } from "@react-google-maps/api";
 // import {formatRelative} from "data.fns";
 // import "@reach/combobox/styles.css";
+
+import { mapStyles } from '../mapStyles';
 import HamburgerMenu from './HamburgerMenu';
 
 const mapContainerStyle = {
@@ -19,6 +21,10 @@ const center = {
   lng: -82.325020
 }
 
+const options = {
+  styles: mapStyles,
+}
+
 export default function Home(props){
   const {isLoaded, loadError} = useLoadScript({
     googleMapsApiKey: "AIzaSyD3QW73Wk9kvkLjqo1RuWiindX6ZW41n9Y"
@@ -29,10 +35,18 @@ export default function Home(props){
   
   
   return <div>
+
     <div className="header">
       <HamburgerMenu/>
       <h1 className="title">Casa Y Comida</h1>
     </div>
-    <GoogleMap mapContainerStyle={mapContainerStyle} zoom={12} center={center}></GoogleMap>
+    
+    <GoogleMap 
+        mapContainerStyle={mapContainerStyle} 
+        zoom={12} 
+        center={center}
+        options={options}
+    ></GoogleMap>
+
   </div>;
 }
