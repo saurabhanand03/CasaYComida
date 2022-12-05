@@ -11,10 +11,11 @@ const sendEmail = require("../utils/sendEmail");
  * @param {string} name - The name of the user
  * @param {string} email - The email of the user
  * @param {string} password - The password of the user
+ * @param {string} confirmPassword - The confirm password of the user
  */
 
 router.post("/signup", async (req, res) => {
-    const { name, email, password } = req.body;
+    const { name, email, password, confirmPassword } = req.body;
     try {
         if(!name || !email || !password) {
             return res.status(400).json({ message: "Missing credentials!"});
@@ -29,6 +30,11 @@ router.post("/signup", async (req, res) => {
         if(!validator.isStrongPassword(password)) {
             return res.status(401).json({ message: "Bad password! Choose a different password"});
         }
+
+        if(password !== confirmPassword) {
+            return res.status(401).json({ message: "Passwords do not match!"});
+        }
+        
         const existingUser = await UserModel.findOne({ email });
         if(existingUser) {
             return res.status(400).json({ message: "User already exists!"});
