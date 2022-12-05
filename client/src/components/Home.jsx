@@ -7,6 +7,7 @@ import {
 } from "@react-google-maps/api";
 // import {formatRelative} from "data.fns";
 // import "@reach/combobox/styles.css";
+import { mapStyles } from '../mapStyles';
 
 const mapContainerStyle = {
   width: '100vw',
@@ -15,6 +16,10 @@ const mapContainerStyle = {
 const center = {
   lat: 29.651979,
   lng: -82.325020
+}
+
+const options = {
+  styles: mapStyles,
 }
 
 export default function Home(props){
@@ -27,6 +32,11 @@ export default function Home(props){
   
   
   return <div>
-    <GoogleMap mapContainerStyle={mapContainerStyle} zoom={12} center={center}></GoogleMap>
+    <GoogleMap 
+        mapContainerStyle={mapContainerStyle} 
+        zoom={12} 
+        center={center}
+        options={options}
+    ></GoogleMap>
   </div>;
 }
