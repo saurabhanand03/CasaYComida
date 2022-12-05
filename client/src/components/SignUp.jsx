@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import {Link} from "react-router-dom";
+import {Link, Navigate} from "react-router-dom";
 
 
 // SignUp page
@@ -8,6 +8,11 @@ export const SignUp = (props) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    const [goToLogin, setGoToLogin] = React.useState(false);
+    
+    if (goToLogin) {
+        return <Navigate to= "/" />;
+      }
 
     async function registerUser(event) {
 		event.preventDefault();
@@ -23,6 +28,10 @@ export const SignUp = (props) => {
                 confirmPassword
 			}),
 		});
+        if(response.status === 201) {
+            setGoToLogin(true);
+            alert("Account created! Please log in to continue.");
+        }
 	}
 
     return (

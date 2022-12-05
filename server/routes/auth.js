@@ -17,7 +17,7 @@ const sendEmail = require("../utils/sendEmail");
 router.post("/signup", async (req, res) => {
     const { name, email, password, confirmPassword } = req.body;
     try {
-        if(!name || !email || !password) {
+        if(!name || !email || !password || !confirmPassword) {
             return res.status(400).json({ message: "Missing credentials!"});
         }
 
@@ -87,7 +87,7 @@ router.post("/signin", async (req, res) => {
         if(correctPwd) {
             //We use jwt to create token for the user 
             const token = jwt.sign({email : existingUser.email, id : existingUser._id}, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1h'});
-            res.status(200).json({ success: true, token, msg: "Login successful!"});
+            res.status(201).json({ success: true, token, msg: "Login successful!"});
         }
     }
     catch (err) {
