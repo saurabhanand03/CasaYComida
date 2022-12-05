@@ -23,16 +23,16 @@ router.post("/signup", async (req, res) => {
 
         //We use validator library to check whether the email is valid or not
         if(!validator.isEmail(email)) {
-            return res.status(401).json({ message: "Not a valid email!"});
+            return res.status(400).json({ message: "Not a valid email!"});
         }
 
         //We use validator library to check whether the password is strong or not
         if(!validator.isStrongPassword(password)) {
-            return res.status(401).json({ message: "Bad password! Choose a different password"});
+            return res.status(400).json({ message: "Bad password! Choose a different password"});
         }
 
         if(password !== confirmPassword) {
-            return res.status(401).json({ message: "Passwords do not match!"});
+            return res.status(400).json({ message: "Passwords do not match!"});
         }
         
         const existingUser = await UserModel.findOne({ email });
@@ -69,19 +69,19 @@ router.post("/signin", async (req, res) => {
             return res.status(400).json({ message: "Missing credentials!"});
         }
         if(!validator.isEmail(email)) {
-            return res.status(401).json({ message: "Not a valid email!"});
+            return res.status(400).json({ message: "Not a valid email!"});
         }
         
         const existingUser = await UserModel.findOne({ email });
         if(!existingUser) {
-            return res.status(401).json({ message: "User does not exist!"});
+            return res.status(400).json({ message: "User does not exist!"});
         }
 
         //We use bcrypt to compare the inputted password with the hashed password stored in the database
         const correctPwd = await bcrypt.compare(password, existingUser.password);
 
         if(!correctPwd) {
-            return res.status(401).json({ message: "Invalid credentials!"});
+            return res.status(400).json({ message: "Invalid credentials!"});
         }
 
         if(correctPwd) {
