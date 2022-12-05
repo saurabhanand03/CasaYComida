@@ -46,3 +46,27 @@ button {
   font-size: smaller;
   padding: 10px;
 }
+
+.header {
+  display: flex;
+}
+
+.hamburger-menu {
+  flex: 1;
+  margin: auto;
+  text-align: justify;
+}
+
+.hamburger-menu-icon{
+  padding: 0 50px;
+}
+
+.header::after {
+  content: '';
+  flex: 1;
+}
+
+.title {
+  margin: 2px 3px;
+  padding: 7px;
+}
