@@ -27,7 +27,7 @@ const options = {
 
 export default function Home(props){
   const {isLoaded, loadError} = useLoadScript({
-    googleMapsApiKey: "AIzaSyD3QW73Wk9kvkLjqo1RuWiindX6ZW41n9Y"
+    googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY
   })
 
   if(loadError) return "Error loading Maps";
