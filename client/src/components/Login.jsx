@@ -12,26 +12,36 @@ export const Login = (props) => {
       }
 
     // Handles page states for entering and submitting login info
-    const handleSubmit = (event) => {
+    async function loginUser(event) {
         event.preventDefault();
-        console.log(email);
+        const response = await fetch('http://localhost:3001/user/signin', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                email,
+                password
+            }),
+        });
+        const data = await response.json();
+        if (data.token) {
+            localStorage.setItem('token', data.token);
+            setGoToHome(true);
+        }
     }
     
     return (
         <div className="auth-form-container">
             <h2>Log In</h2>
-            <form className="login-form" onSubmit={handleSubmit}>
+            <form className="login-form">
                 <label htmlFor="email">Email</label>
                 <input value={email} onChange={(event) => setEmail(event.target.value)} type="email" placeholder="Enter Email" id="email" name="email"/>
                 <label htmlFor="password">Password</label>
                 <input value={password} onChange={(event) => setPassword(event.target.value)} type="password" placeholder="Enter Password" id="password" name="password"/>
                 <Link className="link-btn" to={"/signup"}>Don't have an account? Sign up here</Link>
             </form>
-            <button
-                onClick={() => {
-                setGoToHome(true);
-                }}
-            >Login</button>
+            <button onClick={loginUser}>Login</button>
         </div>
     )
 }
