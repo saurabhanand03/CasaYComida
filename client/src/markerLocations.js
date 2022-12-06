@@ -1,3 +1,4 @@
+// Marker Location information of food banks
 export const foodBankLocations = [
     {
         name: "Bread of the Mighty Food Bank",
@@ -57,6 +58,7 @@ export const foodBankLocations = [
     },
 ];
 
+// Marker Location information of daycares
 export const daycareLocations = [
     {   
         name: "Small World Daycare & Learning Center",
@@ -116,6 +118,7 @@ export const daycareLocations = [
     },
 ]
 
+// Marker Location information of shelters
 export const shelterLocations = [
     {
         name: "St Francis House",
