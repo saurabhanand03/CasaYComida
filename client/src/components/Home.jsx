@@ -2,7 +2,7 @@ import React from "react";
 import {
     GoogleMap,
     useLoadScript,
-    Marker,  
+    MarkerF,  
     InfoWindow,
     MarkerClusterer
 } from "@react-google-maps/api";
@@ -21,7 +21,11 @@ import {
 import "@reach/combobox/styles.css";
 
 import { mapStyles } from '../mapStyles';
-import { markerLocations } from '../markerLocations';
+import {
+  foodBankLocations,
+  daycareLocations,
+  shelterLocations
+} from '../markerLocations';
 import HamburgerMenu from './HamburgerMenu';
 
 const libraries = ["places"];
@@ -42,19 +46,12 @@ export default function Home(props){
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
     libraries
   });
+  
   // useState causes react to rerender
-  const [markers, setMarkers] = React.useState([]);
+  const [foodBanksToggle, setFoodBanksToggle] = React.useState(true);
+  const [daycaresToggle, setDaycaresToggle] = React.useState(true);
+  const [sheltersToggle, setSheltersToggle] = React.useState(true);
   const [selected, setSelected] = React.useState(null);
-
-  const onMapClick = React.useCallback((event) => {
-    setMarkers(current => [
-      ...current,
-      {
-        lat: event.latLng.lat(),
-        lng: event.latLng.lng(),
-      },
-    ]);
-  }, []);
 
   // useRef retains state without causing rerenders
   const mapRef = React.useRef();
@@ -62,9 +59,9 @@ export default function Home(props){
     mapRef.current = map;
   }, []);
 
-  const panTo = React.useCallback(({lat, lng}) => {
+  const panTo = React.useCallback(({lat, lng}, zoom) => {
     mapRef.current.panTo({ lat, lng });
-    mapRef.current.setZoom(16);
+    mapRef.current.setZoom(zoom);
   }, []);
 
   if(loadError) return "Error loading Maps";
@@ -77,39 +74,57 @@ export default function Home(props){
     </div>
 
     <Search panTo={panTo} />
-    <Locate panTo={panTo} />
+    <Recenter panTo={panTo} />
+    <LocateUser panTo={panTo} />
 
     <GoogleMap 
         mapContainerStyle={mapContainerStyle} 
-        zoom={12} 
+        zoom={13} 
         center={center}
         options={options}
         onLoad={onMapLoad}
     >
-      {markerLocations.map((marker) => (
-        <Marker
+      {foodBanksToggle && (foodBankLocations.map((marker) => (
+        <MarkerF
           key={marker.name}
           position={{ lat: marker.lat, lng: marker.lng }}
+          icon={{
+            url: "/map_marker_food_bank.svg",
+            scaledSize: new window.google.maps.Size(40,40)
+          }}
           onClick={() => {
             setSelected(marker);
           }}
         />
-      ))}
-      {/* <Marker key={"anm"} position={markerLocations[0].coords} />
-      <Marker key={"bo"} position={markerLocations[1].coords} />
-      <Marker key={"ce"} position={markerLocations[2].coords} />
-      <Marker key={"da"} position={markerLocations[3].coords} />
-      <Marker key={"ef"} position={markerLocations[4]} /> */}
-      <Marker key={1} position={center} />
-      {markers.map((marker) => (
-        <Marker
-          key={`${marker.lat}-${marker.lng}`}
+      )))}
+
+      {daycaresToggle && (daycareLocations.map((marker) => (
+        <MarkerF
+          key={marker.name}
           position={{ lat: marker.lat, lng: marker.lng }}
+          icon={{
+            url: "/map_marker_daycare.svg",
+            scaledSize: new window.google.maps.Size(40,40)
+          }}
           onClick={() => {
             setSelected(marker);
           }}
         />
-      ))}
+      )))}
+
+      {sheltersToggle && (shelterLocations.map((marker) => (
+        <MarkerF
+          key={marker.name}
+          position={{ lat: marker.lat, lng: marker.lng }}
+          icon={{
+            url: "/map_marker_shelter.svg",
+            scaledSize: new window.google.maps.Size(40,40)
+          }}
+          onClick={() => {
+            setSelected(marker);
+          }}
+        />
+      )))}
 
       {selected ? (
         <InfoWindow
@@ -118,17 +133,37 @@ export default function Home(props){
             setSelected(null);
           }}
         >
-          <div className="info-window-text">
-            <h2>Marker</h2>
-            <p>marker</p>
+          <div className="info-window">
+            <h2>{selected.name}</h2>
+            <div>Phone: {selected.phone}</div>
+            <a href={selected.website} target="_blank"><span>{selected.website}</span></a>
           </div>
         </InfoWindow>
       ) : null}
     </GoogleMap>
+    
+    <div className="button-row">
+      <button className="shelters-button" onClick={() => { setSheltersToggle(!sheltersToggle); }}>Shelters</button>
+      <button className="food-banks-button" onClick={() => { setFoodBanksToggle(!foodBanksToggle); }}>Food Banks</button>
+      <button className="daycares-button" onClick={() => { setDaycaresToggle(!daycaresToggle); }}>Daycares</button>
+    </div>
   </div>;
 }
 
-function Locate({ panTo }) {
+function Recenter({ panTo }) {
+  return (
+    <button
+      className="recenter-button"
+      onClick={() => {
+        panTo(center, 13);
+      }}
+    >
+      <img src="home_icon.svg" alt="compass - locate me" />
+    </button>
+  )
+}
+
+function LocateUser({ panTo }) {
   return (
     <button
       className="locate-button"
@@ -138,13 +173,13 @@ function Locate({ panTo }) {
             panTo({
               lat: position.coords.latitude,
               lng: position.coords.longitude,
-            });
+            }, 16);
           },
           () => null
         );
       }}
     >
-      <img src="Ic_my_location_48px.svg" alt="compass - locate me" />
+      <img src="locate_icon.svg" alt="compass - locate me" />
     </button>
   )
 }
@@ -176,7 +211,7 @@ function Search({ panTo }) {
           try {
             const results = await getGeocode({ address });
             const { lat, lng } = await getLatLng(results[0]);
-            panTo({ lat, lng });
+            panTo({ lat, lng }, 16);
           } catch(error) {
             console.log("error!")
           }

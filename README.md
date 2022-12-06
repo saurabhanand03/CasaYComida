@@ -14,26 +14,29 @@ Casa Y Comida is a free full-stack web application for disadvantaged people who 
 3. Navigate to the server directory of the project and run the command `npm install` to install all of the dependencies.
 4. Create a file called `.env` and paste the following code:
 ```
-MONGODB_URL=mongodb+srv://BOT0001:OurFirstUserxD@cluster0.d9e5gyp.mongodb.net/CEN3031Project?retryWrites=true&w=majority
-ACCESS_TOKEN_SECRET=<your access token secret>
-REFRESH_TOKEN_SECRET=<your refresh token secret>
+MONGO_URL="mongodb+srv://BOT0001:OurFirstUserxD@cluster0.d9e5gyp.mongodb.net/CEN3031Project?retryWrites=true&w=majority"
+ACCESS_TOKEN_SECRET=[your access token secret]
+REFRESH_TOKEN_SECRET=[your refresh token secret]
 ```
-5. Run the command `npm start` to start the server.
+5. Paste your access token secret and refresh token secret in the variable definition (without brackets or quotes)
 
-*\*To generate a random string for the access token secret and refresh token secret, run the following command in a node terminal: `require('crypto').randomBytes(64).toString('hex')`*
+**To generate a random string for the access token secret and refresh token secret, run the following command in a node terminal: `require('crypto').randomBytes(64).toString('hex')`*
 
-*Copy the output of the command and paste it into the `.env` file.*
+6. Run the command `npm start` to start the server.
+
 
 ## Set up client folder
 
-6. Navigate to the client directory of the project and run the command `npm install` to install all of the dependencies.
-7. Create a file called `.env.local` and paste the following code:
+7. Navigate to the client directory of the project and run the command `npm install` to install all of the dependencies.
+8. Create a file called `.env.local` and paste the following code:
 ```
-REACT_APP_GOOGLE_MAPS_API_KEY=[your-api-key-here]
+REACT_APP_GOOGLE_MAPS_API_KEY=[your api key]
 ```
-8. Paste your Google Maps API key in the variable definition
+9. Paste your Google Maps API key in the variable definition (without brackets or quotes)
 
-9. Navigate to the client directory of the project and run the command `npm start` to start the client.
+**If you need help generating a Google Maps API key, follow this video: https://youtu.be/aKZuDAYZROk. Make sure that you also enable the Places and Directions APIs in the developer console.*
+
+10. Run the command `npm start` to start the client.
 
 ---
 
