@@ -25,10 +25,15 @@ const options = {
   styles: mapStyles,
 }
 
+
+const foodBanks = []
+
 export default function Home(props){
   const {isLoaded, loadError} = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY
   })
+
+  const [markers, setMarkers] = React.useState([]);
 
   if(loadError) return "Error loading Maps";
   if(!isLoaded) return "Loading Maps...";
@@ -40,13 +45,31 @@ export default function Home(props){
       <HamburgerMenu/>
       <h1 className="title">Casa Y Comida</h1>
     </div>
-    
+
+
     <GoogleMap 
         mapContainerStyle={mapContainerStyle} 
         zoom={12} 
         center={center}
         options={options}
-    ></GoogleMap>
+        onClick={(event) =>
+            setMarkers(current => [...current, {
+              lat: event.latLng.lat(),
+              lng: event.latLng.lng(),
+              time: new Date()
+            }])  
+        }
+        
+    >
+      <div>
+        <button className="map-button-two">Food Banks</button>
+        <button className="map-button">Shelters</button>
+        <button className="map-button-three">Daycares</button>
+      </div>
+
+      <Marker key={1} position={{lat: 29.660761, lng: -82.328529}}/>
+    </GoogleMap>
+
 
   </div>;
 }

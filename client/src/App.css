@@ -70,3 +70,37 @@ button {
   margin: 2px 3px;
   padding: 7px;
 }
+
+.map-button{
+  border: none;
+  color: #28b7e3;
+  padding: 10px;
+  border-radius: 30px;
+  cursor: pointer;
+  position: absolute;
+  top: 89%;
+  right: 47.91666%
+}
+
+.map-button-two{
+  border: none;
+  color: #28b7e3;
+  padding: 10px;
+  border-radius: 30px;
+  cursor: pointer;
+  position: absolute;
+  top: 89%;
+  right: 54.166666%;
+}
+
+.map-button-three{
+  border: none;
+  color: #28b7e3;
+  padding: 10px;
+  border-radius: 30px;
+  cursor: pointer;
+  position: absolute;
+  top: 89%;
+  right: 41.66666%;
+}
+
