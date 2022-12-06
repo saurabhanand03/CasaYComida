@@ -75,6 +75,7 @@ button {
   margin: 2px 3px;
   padding: 7px;
 }
+
 .search-box {
   position: absolute;
   top: 60px;
@@ -83,6 +84,16 @@ button {
   margin: 5px 0px;
   width: 100%;
   max-width: 400px;
+  z-index: 10;
+}
+
+.recenter-button {
+  position: absolute;
+  top: 60px;
+  left: calc(50% - 130px);
+  transform: translateX(-50%);
+  background: none;
+  border: none;
   z-index: 10;
 }
 
@@ -96,19 +107,33 @@ button {
   z-index: 10;
 }
 
+.recenter-button>img {
+  width: 50px;
+  height: auto;
+}
+
 .locate-button > img {
   width: 50px;
   height: auto;
 }
 
-.info-window>h2,
-.info-window>p {
-  color: black;
+.info-window>h2 {
+  color: #333333;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.info-window>div {
+  color: #333333;
+  font-weight: 400;
   text-align: center;
 }
 
 .info-window>a {
+  color: #1A73E8;
+  font-weight: 400;
   text-align: center;
+  text-decoration: none;
 }
 
 .shelters-button,

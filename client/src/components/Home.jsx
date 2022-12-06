@@ -59,9 +59,9 @@ export default function Home(props){
     mapRef.current = map;
   }, []);
 
-  const panTo = React.useCallback(({lat, lng}) => {
+  const panTo = React.useCallback(({lat, lng}, zoom) => {
     mapRef.current.panTo({ lat, lng });
-    mapRef.current.setZoom(16);
+    mapRef.current.setZoom(zoom);
   }, []);
 
   if(loadError) return "Error loading Maps";
@@ -74,7 +74,8 @@ export default function Home(props){
     </div>
 
     <Search panTo={panTo} />
-    <Locate panTo={panTo} />
+    <Recenter panTo={panTo} />
+    <LocateUser panTo={panTo} />
 
     <GoogleMap 
         mapContainerStyle={mapContainerStyle} 
@@ -134,8 +135,8 @@ export default function Home(props){
         >
           <div className="info-window">
             <h2>{selected.name}</h2>
-            <a href={selected.website} target="_blank">{selected.website}</a>
-            <p>phone: {selected.phone}</p>
+            <div>Phone: {selected.phone}</div>
+            <a href={selected.website} target="_blank"><span>{selected.website}</span></a>
           </div>
         </InfoWindow>
       ) : null}
@@ -149,7 +150,20 @@ export default function Home(props){
   </div>;
 }
 
-function Locate({ panTo }) {
+function Recenter({ panTo }) {
+  return (
+    <button
+      className="recenter-button"
+      onClick={() => {
+        panTo(center, 13);
+      }}
+    >
+      <img src="home_icon.svg" alt="compass - locate me" />
+    </button>
+  )
+}
+
+function LocateUser({ panTo }) {
   return (
     <button
       className="locate-button"
@@ -159,13 +173,13 @@ function Locate({ panTo }) {
             panTo({
               lat: position.coords.latitude,
               lng: position.coords.longitude,
-            });
+            }, 16);
           },
           () => null
         );
       }}
     >
-      <img src="Ic_my_location_48px.svg" alt="compass - locate me" />
+      <img src="locate_icon.svg" alt="compass - locate me" />
     </button>
   )
 }
@@ -197,7 +211,7 @@ function Search({ panTo }) {
           try {
             const results = await getGeocode({ address });
             const { lat, lng } = await getLatLng(results[0]);
-            panTo({ lat, lng });
+            panTo({ lat, lng }, 16);
           } catch(error) {
             console.log("error!")
           }
