@@ -14,7 +14,7 @@ Casa Y Comida is a free full-stack web application for disadvantaged people who 
 3. Navigate to the server directory of the project and run the command `npm install` to install all of the dependencies.
 4. Create a file called `.env` and paste the following code:
 ```
-MONGODB_URL=mongodb+srv://BOT0001:OurFirstUserxD@cluster0.d9e5gyp.mongodb.net/CEN3031Project?retryWrites=true&w=majority
+MONGO_URL="mongodb+srv://BOT0001:OurFirstUserxD@cluster0.d9e5gyp.mongodb.net/CEN3031Project?retryWrites=true&w=majority"
 ACCESS_TOKEN_SECRET=<your access token secret>
 REFRESH_TOKEN_SECRET=<your refresh token secret>
 ```
