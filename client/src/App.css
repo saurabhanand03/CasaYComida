@@ -1,4 +1,4 @@
-// Display settings for application
+/* Display settings for application */
 .App {
   text-align: center;
   display: flex;
@@ -9,26 +9,26 @@
   background-image: linear-gradient(79deg, #085067, #28b7e3,  #45b89b);;
 }
 
-// Display settings for login and signup forms
+/* Display settings for login and signup forms */
 .auth-form-container, .login-form, .signup-form {
   display: flex;
   flex-direction: column;
 }
 
-// Display settings for authentication form container
+/* Display settings for authentication form container */
 .auth-form-container {
   padding: 2rem;
   border: 1px solid white;
   border-radius: 10px;
 }
 
-// Display settings for input field labels
+/* Display settings for input field labels */
 label {
   text-align: left;
   padding: 0.15rem 1;
 }
 
-// Display settings for input boxes
+/* Display settings for input boxes */
 input {
   margin: 0.5rem 0;
   padding: 1rem;
@@ -36,13 +36,13 @@ input {
   border-radius: 5px;
 }
 
-// Display settings for validation error messages
+/* Display settings for validation error messages */
 p {
   text-align: left;
   color: red;
 }
 
-// Display settings buttons
+/* Display settings buttons */
 button {
   border: none;
   background-color: #28b7e3;
@@ -51,7 +51,7 @@ button {
   cursor: pointer;
 }
 
-// Display settings for link buttons
+/* Display settings for link buttons */
 .link-btn {
   background: none;
   color: white;
@@ -60,36 +60,37 @@ button {
   padding: 10px;
 }
 
-// Display settings for headers
+/* Display settings for headers */
 .header {
   display: flex;
 }
 
-// Display settings for hamburger menu
+/* Display settings for hamburger menu */
 .hamburger-menu {
   flex: 1;
   margin: auto;
   text-align: justify;
 }
 
-// Display settings for hamburger menu icon
+/* Display settings for hamburger menu icon */
 .hamburger-menu-icon{
   padding: 0 50px;
+  color: white;
 }
 
-// Display settings for header
+/* Display settings for header */
 .header::after {
   content: '';
   flex: 1;
 }
 
-// Display settings for title
+/* Display settings for title */
 .title {
   margin: 2px 3px;
   padding: 7px;
 }
 
-// Display settings for location search box
+/* Display settings for location search box */
 .search-box {
   position: absolute;
   top: 60px;
@@ -101,7 +102,7 @@ button {
   z-index: 10;
 }
 
-// Display settings for map recenter button
+/* Display settings for map recenter button */
 .recenter-button {
   position: absolute;
   top: 60px;
@@ -112,7 +113,7 @@ button {
   z-index: 10;
 }
 
-// Display settings for locate address button
+/* Display settings for locate address button */
 .locate-button {
   position: absolute;
   top: 60px;
@@ -123,33 +124,33 @@ button {
   z-index: 10;
 }
 
-// Display settings for map recenter button image
+/* Display settings for map recenter button image */
 .recenter-button>img {
   width: 50px;
   height: auto;
 }
 
-// Display settings for locate address button
+/* Display settings for locate address button */
 .locate-button > img {
   width: 50px;
   height: auto;
 }
 
-// Display settings for info window for marker information
+/* Display settings for info window for marker information */
 .info-window>h2 {
   color: #333333;
   font-weight: 500;
   font-size: 14px;
 }
 
-// Display settings for info window for marker information
+/* Display settings for info window for marker information */
 .info-window>div {
   color: #333333;
   font-weight: 400;
   text-align: center;
 }
 
-// Display settings for info window for marker information
+/* Display settings for info window for marker information */
 .info-window>a {
   color: #1A73E8;
   font-weight: 400;
@@ -157,7 +158,7 @@ button {
   text-decoration: none;
 }
 
-// Display settings for shelters, food banks, daycares marker display button
+/* Display settings for shelters, food banks, daycares marker display button */
 .shelters-button,
 .food-banks-button,
 .daycares-button {
@@ -170,19 +171,19 @@ button {
   border-radius: 5%;
 }
 
-// Display settings for shelters marker display button
+/* Display settings for shelters marker display button */
 .shelters-button {
   background-color: #00AEEF;
   left: 25%;
 }
 
-// Display settings for foodbanks marker display button
+/* Display settings for foodbanks marker display button */
 .food-banks-button {
   background-color: #AE00EF;
   left: 50%;
 }
 
-// Display settings for daycares marker display button
+/* Display settings for daycares marker display button */
 .daycares-button {
   background-color: #EFAE00;
   left: 75%;
