@@ -48,9 +48,9 @@ export default function Home(props){
   });
   
   // useState causes react to rerender
-  const [foodBanksSelected, setFoodBanksSelected] = React.useState(null);
-  const [daycaresSelected, setDaycaresSelected] = React.useState(null);
-  const [sheltersSelected, setSheltersSelected] = React.useState(null);
+  const [foodBanksToggle, setFoodBanksToggle] = React.useState(true);
+  const [daycaresToggle, setDaycaresToggle] = React.useState(true);
+  const [sheltersToggle, setSheltersToggle] = React.useState(true);
   const [selected, setSelected] = React.useState(null);
 
   // useRef retains state without causing rerenders
@@ -83,7 +83,7 @@ export default function Home(props){
         options={options}
         onLoad={onMapLoad}
     >
-      {foodBankLocations.map((marker) => (
+      {foodBanksToggle && (foodBankLocations.map((marker) => (
         <MarkerF
           key={marker.name}
           position={{ lat: marker.lat, lng: marker.lng }}
@@ -95,9 +95,9 @@ export default function Home(props){
             setSelected(marker);
           }}
         />
-      ))}
+      )))}
 
-      {daycareLocations.map((marker) => (
+      {daycaresToggle && (daycareLocations.map((marker) => (
         <MarkerF
           key={marker.name}
           position={{ lat: marker.lat, lng: marker.lng }}
@@ -109,9 +109,9 @@ export default function Home(props){
             setSelected(marker);
           }}
         />
-      ))}
+      )))}
 
-      {shelterLocations.map((marker) => (
+      {sheltersToggle && (shelterLocations.map((marker) => (
         <MarkerF
           key={marker.name}
           position={{ lat: marker.lat, lng: marker.lng }}
@@ -123,7 +123,7 @@ export default function Home(props){
             setSelected(marker);
           }}
         />
-      ))}
+      )))}
 
       {selected ? (
         <InfoWindow
@@ -142,9 +142,9 @@ export default function Home(props){
     </GoogleMap>
     
     <div className="button-row">
-      <button className="shelters-button" onClick={() => { setSheltersSelected(); }}>Shelters</button>
-      <button className="food-banks-button" onClick={() => { setFoodBanksSelected(); }}>Food Banks</button>
-      <button className="daycares-button" onClick={() => { setDaycaresSelected(); }}>Daycares</button>
+      <button className="shelters-button" onClick={() => { setSheltersToggle(!sheltersToggle); }}>Shelters</button>
+      <button className="food-banks-button" onClick={() => { setFoodBanksToggle(!foodBanksToggle); }}>Food Banks</button>
+      <button className="daycares-button" onClick={() => { setDaycaresToggle(!daycaresToggle); }}>Daycares</button>
     </div>
   </div>;
 }
