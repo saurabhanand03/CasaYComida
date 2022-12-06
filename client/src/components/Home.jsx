@@ -23,6 +23,7 @@ import "@reach/combobox/styles.css";
 import { mapStyles } from '../mapStyles';
 import { markerLocations } from '../markerLocations';
 import HamburgerMenu from './HamburgerMenu';
+import { locations } from "../locations";
 
 const libraries = ["places"];
 const mapContainerStyle = {
@@ -36,6 +37,11 @@ const center = {
 const options = {
   styles: mapStyles,
 };
+
+
+
+
+const foodBanks = []
 
 export default function Home(props){
   const {isLoaded, loadError} = useLoadScript({
@@ -67,6 +73,8 @@ export default function Home(props){
     mapRef.current.setZoom(16);
   }, []);
 
+  const [markers, setMarkers] = React.useState([]);
+
   if(loadError) return "Error loading Maps";
   if(!isLoaded) return "Loading Maps...";
   
@@ -85,8 +93,16 @@ export default function Home(props){
         center={center}
         options={options}
         onLoad={onMapLoad}
+        
     >
-      {markerLocations.map((marker) => (
+  
+      <div>
+        <button className="map-button-two">Food Banks</button>
+        <button className="map-button">Shelters</button>
+        <button className="map-button-three">Daycares</button>
+      </div>
+      
+            {markerLocations.map((marker) => (
         <Marker
           key={marker.name}
           position={{ lat: marker.lat, lng: marker.lng }}
@@ -110,6 +126,11 @@ export default function Home(props){
           }}
         />
       ))}
+
+        
+      
+    </GoogleMap>
+
 
       {selected ? (
         <InfoWindow
