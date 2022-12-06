@@ -31,11 +31,11 @@ REFRESH_TOKEN_SECRET=<your refresh token secret>
 ```
 REACT_APP_GOOGLE_MAPS_API_KEY=[your-api-key-here]
 ```
-8. Paste your Google Maps API key in the variable definition
+8. Paste your Google Maps API key in the variable definition (without brackets or quotes)
 
-If you need help generating a Google Maps API key, follow this video: https://youtu.be/aKZuDAYZROk. Make sure that you also enable the Places and Directions APIs in the developer console.
+**If you need help generating a Google Maps API key, follow this video: https://youtu.be/aKZuDAYZROk. Make sure that you also enable the Places and Directions APIs in the developer console.*
 
-9. Navigate to the client directory of the project and run the command `npm start` to start the client.
+9. Run the command `npm start` to start the client.
 
 ---
 
