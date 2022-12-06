@@ -10,10 +10,12 @@ export const SignUp = (props) => {
     const [goToLogin, setGoToLogin] = React.useState(false);
     const [formErrors, setFormErrors] = useState({});
 
+    // Navigate to login page if user successfully signs up
     if (goToLogin) {
         return <Navigate to= "/" />;
       }
-
+	
+    // Handles page states for entering and submitting sign up info
     async function registerUser(event) {
 		event.preventDefault();
 		const response = await fetch('http://localhost:3001/user/signup', {
@@ -29,12 +31,15 @@ export const SignUp = (props) => {
 			})
 		})
         setFormErrors(validate(name, email, password, confirmPassword));
+	
+	// If users sign up with valid credentials they are able to login
         if(response.ok) {
             setGoToLogin(true);
             alert("Account created! Please log in to continue.")
         }
 	}
 
+    // Handles error messages if inputs given by user for signing up is invalid
     const validate = (name, email, password, confirmPassword) => {
         const errors = {}
         if(!name){
@@ -58,6 +63,7 @@ export const SignUp = (props) => {
         return errors;
     }
 
+    // returns contents of Sign Up page
     return (
         <div className="auth-form-container">
             <h2>Sign Up</h2>
