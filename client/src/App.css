@@ -31,6 +31,11 @@ input {
   border-radius: 5px;
 }
 
+p {
+  text-align: left;
+  color: red;
+}
+
 button {
   border: none;
   color: #28b7e3;
@@ -102,5 +107,35 @@ button {
   position: absolute;
   top: 89%;
   right: 41.66666%;
+}
+
+.search-box {
+  position: absolute;
+  top: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 5px 0px;
+  width: 100%;
+  max-width: 400px;
+  z-index: 10;
+}
+
+.locate-button {
+  position: absolute;
+  top: 60px;
+  left: calc(50% + 130px);
+  transform: translateX(-50%);
+  background: none;
+  border: none;
+  z-index: 10;
+}
+
+.locate-button > img {
+  width: 50px;
+  height: auto;
+}
+
+.info-window-text {
+  color: black;
 }
 
