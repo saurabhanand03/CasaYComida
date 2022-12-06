@@ -143,9 +143,9 @@ export default function Home(props){
     </GoogleMap>
     
     <div className="button-row">
-      <button className="shelters-button" onClick={() => { setSheltersToggle(!sheltersToggle); }}>Shelters</button>
-      <button className="food-banks-button" onClick={() => { setFoodBanksToggle(!foodBanksToggle); }}>Food Banks</button>
-      <button className="daycares-button" onClick={() => { setDaycaresToggle(!daycaresToggle); }}>Daycares</button>
+      <button className={"shelters-button " + (sheltersToggle ? '' : 'toggled-off')} onClick={() => { setSheltersToggle(!sheltersToggle); }}>Shelters</button>
+      <button className={"food-banks-button " + (foodBanksToggle ? '' : 'toggled-off')} onClick={() => { setFoodBanksToggle(!foodBanksToggle); }}>Food Banks</button>
+      <button className={"daycares-button " + (daycaresToggle ? '' : 'toggled-off')} onClick={() => { setDaycaresToggle(!daycaresToggle); }}>Daycares</button>
     </div>
   </div>;
 }

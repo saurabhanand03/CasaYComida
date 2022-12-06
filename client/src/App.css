@@ -188,3 +188,8 @@ button {
   background-color: #EFAE00;
   left: 75%;
 }
+
+/* Display settings for button toggled off */
+.toggled-off {
+  filter: brightness(50%);
+}
