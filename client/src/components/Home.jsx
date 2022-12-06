@@ -10,6 +10,7 @@ import {
 
 import { mapStyles } from '../mapStyles';
 import HamburgerMenu from './HamburgerMenu';
+import { locations } from "../locations";
 
 const mapContainerStyle = {
   width: '100vw',
@@ -24,6 +25,8 @@ const center = {
 const options = {
   styles: mapStyles,
 }
+
+
 
 
 const foodBanks = []
@@ -61,13 +64,16 @@ export default function Home(props){
         }
         
     >
+      {/* <Marker key={1} position={{lat: locations.findIndex(1).lat, lng: locations.findIndex(1).lng}}/> */}
+  
       <div>
         <button className="map-button-two">Food Banks</button>
         <button className="map-button">Shelters</button>
         <button className="map-button-three">Daycares</button>
       </div>
 
-      <Marker key={1} position={{lat: 29.660761, lng: -82.328529}}/>
+        
+      
     </GoogleMap>
 
 
