@@ -7,6 +7,7 @@ export const Login = (props) => {
     const [password, setPassword] = useState('');
     const [goToHome, setGoToHome] = React.useState(false);
 
+    // Navigates to home page when user correctly logs in
     if (goToHome) {
         return <Navigate to="/home" />;
       }
@@ -31,6 +32,7 @@ export const Login = (props) => {
         }
     }
     
+    // Contents of the Login page is returned
     return (
         <div className="auth-form-container">
             <h2>Log In</h2>
