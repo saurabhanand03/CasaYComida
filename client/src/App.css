@@ -75,6 +75,7 @@ button {
 /* Display settings for hamburger menu icon */
 .hamburger-menu-icon{
   padding: 0 50px;
+  color: white;
 }
 
 /* Display settings for header */
