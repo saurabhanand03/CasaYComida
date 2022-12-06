@@ -47,7 +47,9 @@ export const SignUp = (props) => {
         }
         if(!password){
             errors.password = "Password is required!";
-        } else if(false){}
+        } else if(!new RegExp(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$/).test(password)){
+	    errors.password = "Password must have at least 8 charaters with uppercase and lowercase letters and numbers";
+	}
         if(!confirmPassword){
             errors.confirmPassword = "Please confirm your password!";
         }else if(password !== confirmPassword){
