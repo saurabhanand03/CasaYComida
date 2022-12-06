@@ -30,7 +30,7 @@ REFRESH_TOKEN_SECRET=[your refresh token secret]
 7. Navigate to the client directory of the project and run the command `npm install` to install all of the dependencies.
 8. Create a file called `.env.local` and paste the following code:
 ```
-REACT_APP_GOOGLE_MAPS_API_KEY=[your-api-key-here]
+REACT_APP_GOOGLE_MAPS_API_KEY=[your api key]
 ```
 9. Paste your Google Maps API key in the variable definition (without brackets or quotes)
 
