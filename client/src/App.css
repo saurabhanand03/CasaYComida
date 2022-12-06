@@ -38,9 +38,9 @@ p {
 
 button {
   border: none;
-  color: #28b7e3;
+  background-color: #28b7e3;
+  color: white;
   padding: 10px;
-  border-radius: 30px;
   cursor: pointer;
 }
 
@@ -75,40 +75,6 @@ button {
   margin: 2px 3px;
   padding: 7px;
 }
-
-.map-button{
-  border: none;
-  color: #28b7e3;
-  padding: 10px;
-  border-radius: 30px;
-  cursor: pointer;
-  position: absolute;
-  top: 89%;
-  right: 47.91666%
-}
-
-.map-button-two{
-  border: none;
-  color: #28b7e3;
-  padding: 10px;
-  border-radius: 30px;
-  cursor: pointer;
-  position: absolute;
-  top: 89%;
-  right: 54.166666%;
-}
-
-.map-button-three{
-  border: none;
-  color: #28b7e3;
-  padding: 10px;
-  border-radius: 30px;
-  cursor: pointer;
-  position: absolute;
-  top: 89%;
-  right: 41.66666%;
-}
-
 .search-box {
   position: absolute;
   top: 60px;
@@ -135,7 +101,39 @@ button {
   height: auto;
 }
 
-.info-window-text {
+.info-window>h2,
+.info-window>p {
   color: black;
+  text-align: center;
 }
 
+.info-window>a {
+  text-align: center;
+}
+
+.shelters-button,
+.food-banks-button,
+.daycares-button {
+  padding: 10px 20px;
+  position: absolute;
+  top: 89%;
+  font-size: 20px;
+  font-weight: bold;
+  transform: translateX(-50%);
+  border-radius: 5%;
+}
+
+.shelters-button {
+  background-color: #00AEEF;
+  left: 25%;
+}
+
+.food-banks-button {
+  background-color: #AE00EF;
+  left: 50%;
+}
+
+.daycares-button {
+  background-color: #EFAE00;
+  left: 75%;
+}

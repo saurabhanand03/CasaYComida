@@ -2,7 +2,7 @@ import React from "react";
 import {
     GoogleMap,
     useLoadScript,
-    Marker,  
+    MarkerF,  
     InfoWindow,
     MarkerClusterer
 } from "@react-google-maps/api";
@@ -21,7 +21,11 @@ import {
 import "@reach/combobox/styles.css";
 
 import { mapStyles } from '../mapStyles';
-import { markerLocations } from '../markerLocations';
+import {
+  foodBankLocations,
+  daycareLocations,
+  shelterLocations
+} from '../markerLocations';
 import HamburgerMenu from './HamburgerMenu';
 
 const libraries = ["places"];
@@ -42,19 +46,12 @@ export default function Home(props){
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
     libraries
   });
+  
   // useState causes react to rerender
-  const [markers, setMarkers] = React.useState([]);
+  const [foodBanksSelected, setFoodBanksSelected] = React.useState(null);
+  const [daycaresSelected, setDaycaresSelected] = React.useState(null);
+  const [sheltersSelected, setSheltersSelected] = React.useState(null);
   const [selected, setSelected] = React.useState(null);
-
-  const onMapClick = React.useCallback((event) => {
-    setMarkers(current => [
-      ...current,
-      {
-        lat: event.latLng.lat(),
-        lng: event.latLng.lng(),
-      },
-    ]);
-  }, []);
 
   // useRef retains state without causing rerenders
   const mapRef = React.useRef();
@@ -81,37 +78,47 @@ export default function Home(props){
 
     <GoogleMap 
         mapContainerStyle={mapContainerStyle} 
-        zoom={12} 
+        zoom={13} 
         center={center}
         options={options}
         onLoad={onMapLoad}
     >
-  
-    <div>
-      <button className="map-button-two">Food Banks</button>
-      <button className="map-button">Shelters</button>
-      <button className="map-button-three">Daycares</button>
-    </div>
-    
-      {markerLocations.map((marker) => (
-        <Marker
+      {foodBankLocations.map((marker) => (
+        <MarkerF
           key={marker.name}
           position={{ lat: marker.lat, lng: marker.lng }}
+          icon={{
+            url: "/map_marker_food_bank.svg",
+            scaledSize: new window.google.maps.Size(40,40)
+          }}
           onClick={() => {
             setSelected(marker);
           }}
         />
       ))}
-      {/* <Marker key={"anm"} position={markerLocations[0].coords} />
-      <Marker key={"bo"} position={markerLocations[1].coords} />
-      <Marker key={"ce"} position={markerLocations[2].coords} />
-      <Marker key={"da"} position={markerLocations[3].coords} />
-      <Marker key={"ef"} position={markerLocations[4]} /> */}
-      <Marker key={1} position={center} />
-      {markers.map((marker) => (
-        <Marker
-          key={`${marker.lat}-${marker.lng}`}
+
+      {daycareLocations.map((marker) => (
+        <MarkerF
+          key={marker.name}
           position={{ lat: marker.lat, lng: marker.lng }}
+          icon={{
+            url: "/map_marker_daycare.svg",
+            scaledSize: new window.google.maps.Size(40,40)
+          }}
+          onClick={() => {
+            setSelected(marker);
+          }}
+        />
+      ))}
+
+      {shelterLocations.map((marker) => (
+        <MarkerF
+          key={marker.name}
+          position={{ lat: marker.lat, lng: marker.lng }}
+          icon={{
+            url: "/map_marker_shelter.svg",
+            scaledSize: new window.google.maps.Size(40,40)
+          }}
           onClick={() => {
             setSelected(marker);
           }}
@@ -125,13 +132,20 @@ export default function Home(props){
             setSelected(null);
           }}
         >
-          <div className="info-window-text">
-            <h2>Marker</h2>
-            <p>marker</p>
+          <div className="info-window">
+            <h2>{selected.name}</h2>
+            <a href={selected.website} target="_blank">{selected.website}</a>
+            <p>phone: {selected.phone}</p>
           </div>
         </InfoWindow>
       ) : null}
     </GoogleMap>
+    
+    <div className="button-row">
+      <button className="shelters-button" onClick={() => { setSheltersSelected(); }}>Shelters</button>
+      <button className="food-banks-button" onClick={() => { setFoodBanksSelected(); }}>Food Banks</button>
+      <button className="daycares-button" onClick={() => { setDaycaresSelected(); }}>Daycares</button>
+    </div>
   </div>;
 }
 
