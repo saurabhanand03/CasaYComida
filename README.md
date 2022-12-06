@@ -18,7 +18,7 @@ MONGO_URL="mongodb+srv://BOT0001:OurFirstUserxD@cluster0.d9e5gyp.mongodb.net/CEN
 ACCESS_TOKEN_SECRET=[your access token secret]
 REFRESH_TOKEN_SECRET=[your refresh token secret]
 ```
-5. Paste your access token secret and refresh token secret in the variable definition (with quotes but no brackets)
+5. Paste your access token secret and refresh token secret in the variable definition (without brackets or quotes)
 
 **To generate a random string for the access token secret and refresh token secret, run the following command in a node terminal: `require('crypto').randomBytes(64).toString('hex')`*
 
